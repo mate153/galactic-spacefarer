@@ -20,6 +20,14 @@ entity Positions : cuid {
     on spacefarers.position = $self;
 }
 
+type SpacesuitColor : String @assert.enum enum {
+  BLACK;
+  WHITE;
+  BLUE;
+  RED;
+  GREEN;
+}
+
 entity Spacefarers : cuid, managed {
   name : String(100) not null;
   email : String(254) not null;
@@ -29,5 +37,5 @@ entity Spacefarers : cuid, managed {
   carryingCapacity : Integer not null;
   stardustCollection : Decimal(5,1) not null;
   wormholeNavigationSkill : Integer not null;
-  spacesuitColor : String(100) not null;
+  spacesuitColor : SpacesuitColor not null;
 }
