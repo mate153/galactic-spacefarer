@@ -26,7 +26,8 @@ entity Spacefarers : cuid, managed {
   originPlanet : Association to one Planets not null;
   department : Association to one Departments not null;
   position : Association to one Positions not null;
-  stardustCollection : Integer default 0 not null;
+  carryingCapacity : Integer not null;
+  stardustCollection : Decimal(5,1) not null;
   wormholeNavigationSkill : Integer not null;
   spacesuitColor : String(100) not null;
 }
