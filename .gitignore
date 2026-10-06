@@ -17,3 +17,8 @@ mta_archives/
 
 # @cap-js/cds-typer
 @cds-models
+
+# Test artifacts
+test/.results-backend.json
+test/.suite-started
+.cache/
