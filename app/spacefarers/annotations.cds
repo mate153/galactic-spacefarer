@@ -32,7 +32,10 @@ annotate service.Spacefarers with @(
   },
   UI.FieldGroup #Assignment: {
     Data: [
-      { Value: originPlanet_ID },
+      {
+        Value: originPlanet_ID,
+        ![@Common.FieldControl]: {$edmJson: {$If: [{$Eq: [{$Path: 'HasActiveEntity'}, false]}, 3, 1]}}
+      },
       { Value: department_ID },
       { Value: position_ID }
     ]
@@ -84,6 +87,7 @@ annotate service.Spacefarers with {
     title: 'Origin Planet',
     Common.Text: originPlanet.name,
     Common.TextArrangement: #TextOnly,
+    Common.FieldControl: {$edmJson: {$If: [{$Eq: [{$Path: 'HasActiveEntity'}, false]}, 3, 1]}},
     Common.ValueList: {
       CollectionPath: 'Planets',
       Parameters: [
