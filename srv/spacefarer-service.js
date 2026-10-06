@@ -22,6 +22,12 @@ const mailTransport = nodemailer.createTransport({
 export default (srv) => {
   const { Planets } = srv.entities
 
+  srv.on('getCurrentUser', (req) => ({
+    id: req.user.id,
+    name: req.user.attr?.name ?? req.user.id,
+    planet: req.user.attr?.planet ?? ''
+  }))
+
   srv.before('CREATE', 'Spacefarers', async (req) => {
     await assertOriginPlanetMatchesUser(req, Planets)
     validateEmailFormat(req)

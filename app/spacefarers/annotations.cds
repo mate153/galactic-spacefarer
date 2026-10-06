@@ -39,8 +39,8 @@ annotate service.Spacefarers with @(
   },
   UI.FieldGroup #CosmicProfile: {
     Data: [
-      { Value: carryingCapacity },
-      { Value: wormholeNavigationSkill }
+      { Value: carryingCapacity, Label: 'Carrying Capacity (1–10)' },
+      { Value: wormholeNavigationSkill, Label: 'Wormhole Navigation Skill (1–5)' }
     ]
   },
   UI.LineItem: [

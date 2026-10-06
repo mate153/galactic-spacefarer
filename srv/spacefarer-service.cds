@@ -14,6 +14,12 @@ service SpacefarerService @(requires: 'authenticated-user') {
   entity Planets as projection on db.Planets;
   entity Departments as projection on db.Departments;
   entity Positions as projection on db.Positions;
+
+  function getCurrentUser() returns {
+    id     : String;
+    name   : String;
+    planet : String;
+  };
 }
 
 annotate SpacefarerService.Spacefarers with {
