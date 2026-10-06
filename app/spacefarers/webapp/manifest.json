@@ -104,6 +104,14 @@
                   "tableSettings": {
                     "type": "GridTable"
                   }
+                },
+                "@com.sap.vocabularies.UI.v1.SelectionFields": {
+                  "filterFields": {
+                    "spacesuitColor": {
+                      "label": "Spacesuit Color",
+                      "template": "galactic.spacefarer.spacefarers.spacefarers.ext.fragment.SpacesuitColorFilter"
+                    }
+                  }
                 }
               }
             }

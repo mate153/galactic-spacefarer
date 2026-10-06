@@ -1,0 +1,17 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+  <MultiComboBox
+    width="100%"
+    selectedKeys="{
+      path: 'filterValues>',
+      type: 'sap.fe.macros.filter.type.MultiValue',
+      formatOptions: {
+        operator: 'EQ'
+      }
+    }">
+    <core:Item key="BLACK" text="Black" />
+    <core:Item key="WHITE" text="White" />
+    <core:Item key="BLUE" text="Blue" />
+    <core:Item key="RED" text="Red" />
+    <core:Item key="GREEN" text="Green" />
+  </MultiComboBox>
+</core:FragmentDefinition>
