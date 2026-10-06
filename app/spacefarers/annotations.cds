@@ -1,6 +1,48 @@
 using SpacefarerService as service from '../../srv/spacefarer-service';
 
 annotate service.Spacefarers with @(
+  UI.HeaderInfo: {
+    TypeName: 'Spacefarer',
+    TypeNamePlural: 'Spacefarers',
+    Title: { Value: name },
+    Description: { Value: email }
+  },
+  UI.Facets: [
+    {
+      $Type: 'UI.ReferenceFacet',
+      Label: 'Identity',
+      Target: '@UI.FieldGroup#Identity'
+    },
+    {
+      $Type: 'UI.ReferenceFacet',
+      Label: 'Assignment',
+      Target: '@UI.FieldGroup#Assignment'
+    },
+    {
+      $Type: 'UI.ReferenceFacet',
+      Label: 'Cosmic Profile',
+      Target: '@UI.FieldGroup#CosmicProfile'
+    }
+  ],
+  UI.FieldGroup #Identity: {
+    Data: [
+      { Value: name },
+      { Value: email }
+    ]
+  },
+  UI.FieldGroup #Assignment: {
+    Data: [
+      { Value: originPlanet_ID },
+      { Value: department_ID },
+      { Value: position_ID }
+    ]
+  },
+  UI.FieldGroup #CosmicProfile: {
+    Data: [
+      { Value: carryingCapacity },
+      { Value: wormholeNavigationSkill }
+    ]
+  },
   UI.LineItem: [
     { Value: name },
     { Value: email },
@@ -27,12 +69,15 @@ annotate service.Spacefarers with @(
     ],
     Visualizations: ['@UI.LineItem']
   },
-  UI.CreateHidden: true,
-  UI.UpdateHidden: true,
   UI.DeleteHidden: true
 );
 
 annotate service.Spacefarers with {
+  ID @UI.Hidden;
+  createdAt @UI.Hidden;
+  createdBy @UI.Hidden;
+  modifiedAt @UI.Hidden;
+  modifiedBy @UI.Hidden;
   name @title: 'Name';
   email @title: 'Email';
   originPlanet @(
@@ -72,8 +117,11 @@ annotate service.Spacefarers with {
     }
   );
   carryingCapacity @title: 'Carrying Capacity';
-  stardustCollection @title: 'Stardust Collection';
   wormholeNavigationSkill @title: 'Wormhole Navigation Skill';
+  stardustCollection @(
+    title: 'Stardust Collection',
+    Common.Documentation: 'Calculated from Carrying Capacity and Wormhole Navigation Skill. On create it is set automatically; while editing you may override it.'
+  );
   spacesuitColor @title: 'Spacesuit Color' @Common.ValueListWithFixedValues: true;
 };
 

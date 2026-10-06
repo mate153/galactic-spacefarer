@@ -22,6 +22,10 @@ export default (srv) => {
     validateAndCalculateStardust(req)
   })
 
+  srv.before('UPDATE', 'Spacefarers', (req) => {
+    validateEmailFormat(req)
+  })
+
   srv.after('CREATE', 'Spacefarers', async (_createdKeys, req) => {
     await sendWelcomeEmail(req.data)
   })
