@@ -124,7 +124,9 @@
               "controlConfiguration": {
                 "@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
-                    "type": "GridTable"
+                    "type": "GridTable",
+                    "rowCount": 15,
+                    "rowCountMode": "Fixed"
                   }
                 },
                 "@com.sap.vocabularies.UI.v1.SelectionFields": {
@@ -191,6 +193,9 @@
     "extends": {
       "extensions": {
         "sap.ui.controllerExtensions": {
+          "sap.fe.templates.ListReport.ListReportController#galactic.spacefarer.spacefarers.spacefarers::SpacefarersList": {
+            "controllerName": "galactic.spacefarer.spacefarers.spacefarers.ext.controller.SpacefarersList"
+          },
           "sap.fe.templates.ObjectPage.ObjectPageController#galactic.spacefarer.spacefarers.spacefarers::SpacefarersObjectPage": {
             "controllerName": "galactic.spacefarer.spacefarers.spacefarers.ext.controller.SpacefarerObjectPage"
           }
