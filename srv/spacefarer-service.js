@@ -1,4 +1,7 @@
+import cds from '@sap/cds'
 import nodemailer from 'nodemailer'
+
+const { SELECT } = cds.ql
 
 const skillMultipliers = {
   1: 0.5,
@@ -17,18 +20,41 @@ const mailTransport = nodemailer.createTransport({
 })
 
 export default (srv) => {
-  srv.before('CREATE', 'Spacefarers', (req) => {
+  const { Planets } = srv.entities
+
+  srv.before('CREATE', 'Spacefarers', async (req) => {
+    await assertOriginPlanetMatchesUser(req, Planets)
     validateEmailFormat(req)
     validateAndCalculateStardust(req)
   })
 
-  srv.before('UPDATE', 'Spacefarers', (req) => {
+  srv.before('UPDATE', 'Spacefarers', async (req) => {
+    if (req.data.originPlanet_ID !== undefined || req.data.originPlanet !== undefined) {
+      await assertOriginPlanetMatchesUser(req, Planets)
+    }
     validateEmailFormat(req)
   })
 
   srv.after('CREATE', 'Spacefarers', async (_createdKeys, req) => {
     await sendWelcomeEmail(req.data)
   })
+}
+
+async function assertOriginPlanetMatchesUser(req, Planets) {
+  const userPlanet = req.user?.attr?.planet
+  if (!userPlanet) {
+    return req.reject(403, 'User planet is required for this operation.')
+  }
+
+  const planetId = req.data.originPlanet_ID ?? req.data.originPlanet?.ID
+  if (!planetId) {
+    return req.reject(403, 'Origin planet is required.')
+  }
+
+  const planet = await SELECT.one.from(Planets).columns('name').where({ ID: planetId })
+  if (!planet || planet.name !== userPlanet) {
+    return req.reject(403, 'You may only manage Spacefarers for your own planet.')
+  }
 }
 
 function validateEmailFormat(req) {
