@@ -3,13 +3,34 @@
   "version": "1.0.0",
   "type": "module",
   "dependencies": {
-    "@sap/cds": "^10"
+    "@sap/cds": "^10",
+    "nodemailer": "^10.0.15"
   },
   "devDependencies": {
-    "@cap-js/sqlite": "^3.1.1"
+    "@cap-js/cds-test": "^1.0.2",
+    "@cap-js/sqlite": "^3.1.1",
+    "cds-plugin-ui5": "^0.17.0",
+    "chai": "^6.3.0",
+    "chai-as-promised": "^8.0.2",
+    "mocha": "^12.0.3",
+    "puppeteer": "^25.12.0"
   },
   "scripts": {
-    "start": "cds-serve"
+    "start": "cds-serve",
+    "watch-spacefarers": "cds watch --open galactic.spacefarer.spacefarers.spacefarers/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "postinstall": "node scripts/ensure-chrome.mjs",
+    "test": "node test/run-suite.mjs",
+    "test:backend": "CDS_PLUGIN_UI5_ACTIVE=false CDS_TEST_SILENT=false mocha --timeout 60000 'test/backend/**/*.test.js' --file test/backend/_hooks.js",
+    "test:ui": "node test/ui/run-opa.mjs"
   },
-  "private": true
+  "private": true,
+  "workspaces": [
+    "app/*"
+  ],
+  "sapux": [
+    "app/spacefarers"
+  ],
+  "allowScripts": {
+    "puppeteer@25.12.0": true
+  }
 }

@@ -1,0 +1,25 @@
+{
+  "requires": {
+    "auth": {
+      "kind": "basic",
+      "users": {
+        "han": {
+          "password": "han",
+          "attr": {
+            "name": "Han Solo",
+            "planet": "Corellia",
+            "email": "han-solo@starwars.com"
+          }
+        },
+        "ellen": {
+          "password": "ellen",
+          "attr": {
+            "name": "Ellen Ripley",
+            "planet": "Earth",
+            "email": "ellen-ripley@alien.com"
+          }
+        }
+      }
+    }
+  }
+}

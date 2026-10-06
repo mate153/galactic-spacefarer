@@ -1,0 +1,19 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m">
+  <VBox>
+    <Input
+      width="100%"
+      type="Number"
+      value="{
+        path: 'stardustCollection',
+        type: 'sap.ui.model.odata.type.Decimal',
+        constraints: {
+          precision: 5,
+          scale: 1
+        }
+      }"
+      editable="{= %{ui>/isEditable} &amp;&amp; !%{pageInternal>createMode} }" />
+    <Text
+      text="{= %{pageInternal>createMode} ? %{i18n>stardustHelperCreate} : %{i18n>stardustHelperEdit} }"
+      class="sapUiTinyMarginTop" />
+  </VBox>
+</core:FragmentDefinition>

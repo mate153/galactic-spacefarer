@@ -1,0 +1,215 @@
+{
+  "_version": "1.87.0",
+  "sap.app": {
+    "id": "galactic.spacefarer.spacefarers.spacefarers",
+    "type": "application",
+    "i18n": {
+      "bundleUrl": "i18n/i18n.properties",
+      "supportedLocales": ["en", ""],
+      "fallbackLocale": "en"
+    },
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.33.0",
+      "toolsId": "08450b62-0cbe-43ea-bba4-04665f8a6933"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/spacefarer/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.149.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "galactic.spacefarer.spacefarers.spacefarers.i18n.i18n",
+          "supportedLocales": ["en", ""],
+          "fallbackLocale": "en"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleUrl": "i18n/i18n.properties",
+          "supportedLocales": ["en", ""],
+          "fallbackLocale": "en"
+        }
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "SpacefarersList",
+          "target": "SpacefarersList"
+        },
+        {
+          "pattern": "Spacefarers({key}):?query:",
+          "name": "SpacefarersObjectPage",
+          "target": "SpacefarersObjectPage"
+        }
+      ],
+      "targets": {
+        "SpacefarersList": {
+          "type": "Component",
+          "id": "SpacefarersList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/Spacefarers",
+              "variantManagement": "Page",
+              "initialLoad": "Enabled",
+              "navigation": {
+                "Spacefarers": {
+                  "detail": {
+                    "route": "SpacefarersObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "GridTable",
+                    "rowCount": 15,
+                    "rowCountMode": "Fixed"
+                  }
+                },
+                "@com.sap.vocabularies.UI.v1.SelectionFields": {
+                  "filterFields": {
+                    "spacesuitColor": {
+                      "label": "Spacesuit Color",
+                      "template": "galactic.spacefarer.spacefarers.spacefarers.ext.fragment.SpacesuitColorFilter"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "SpacefarersObjectPage": {
+          "type": "Component",
+          "id": "SpacefarersObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/Spacefarers",
+              "content": {
+                "header": {
+                  "actions": {
+                    "NavToList": {
+                      "press": ".extension.galactic.spacefarer.spacefarers.spacefarers.ext.controller.SpacefarerObjectPage.onNavToList",
+                      "visible": true,
+                      "enabled": true,
+                      "text": "{i18n>navBackToList}"
+                    }
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.FieldGroup#CosmicProfile": {
+                  "fields": {
+                    "stardustCollection": {
+                      "label": "Stardust Collection",
+                      "property": "stardustCollection",
+                      "template": "galactic.spacefarer.spacefarers.spacefarers.ext.fragment.StardustCollectionField",
+                      "position": {
+                        "placement": "After",
+                        "anchor": "DataField::wormholeNavigationSkill"
+                      }
+                    },
+                    "spacesuitColor": {
+                      "label": "Spacesuit Color",
+                      "property": "spacesuitColor",
+                      "template": "galactic.spacefarer.spacefarers.spacefarers.ext.fragment.SpacesuitColorField",
+                      "position": {
+                        "placement": "After",
+                        "anchor": "stardustCollection"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {
+          "sap.fe.templates.ListReport.ListReportController#galactic.spacefarer.spacefarers.spacefarers::SpacefarersList": {
+            "controllerName": "galactic.spacefarer.spacefarers.spacefarers.ext.controller.SpacefarersList"
+          },
+          "sap.fe.templates.ObjectPage.ObjectPageController#galactic.spacefarer.spacefarers.spacefarers::SpacefarersObjectPage": {
+            "controllerName": "galactic.spacefarer.spacefarers.spacefarers.ext.controller.SpacefarerObjectPage"
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.fe": {
+    "app": {
+      "enableLazyLoading": true
+    }
+  }
+}
