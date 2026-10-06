@@ -3,7 +3,11 @@
   "sap.app": {
     "id": "galactic.spacefarer.spacefarers.spacefarers",
     "type": "application",
-    "i18n": "i18n/i18n.properties",
+    "i18n": {
+      "bundleUrl": "i18n/i18n.properties",
+      "supportedLocales": ["en", ""],
+      "fallbackLocale": "en"
+    },
     "applicationVersion": {
       "version": "0.0.1"
     },
@@ -60,7 +64,9 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "galactic.spacefarer.spacefarers.spacefarers.i18n.i18n"
+          "bundleName": "galactic.spacefarer.spacefarers.spacefarers.i18n.i18n",
+          "supportedLocales": ["en", ""],
+          "fallbackLocale": "en"
         }
       },
       "": {
@@ -74,7 +80,11 @@
       },
       "@i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
-        "uri": "i18n/i18n.properties"
+        "settings": {
+          "bundleUrl": "i18n/i18n.properties",
+          "supportedLocales": ["en", ""],
+          "fallbackLocale": "en"
+        }
       }
     },
     "resources": {
@@ -87,6 +97,11 @@
           "pattern": ":?query:",
           "name": "SpacefarersList",
           "target": "SpacefarersList"
+        },
+        {
+          "pattern": "Spacefarers({key}):?query:",
+          "name": "SpacefarersObjectPage",
+          "target": "SpacefarersObjectPage"
         }
       ],
       "targets": {
@@ -99,6 +114,13 @@
               "contextPath": "/Spacefarers",
               "variantManagement": "Page",
               "initialLoad": "Enabled",
+              "navigation": {
+                "Spacefarers": {
+                  "detail": {
+                    "route": "SpacefarersObjectPage"
+                  }
+                }
+              },
               "controlConfiguration": {
                 "@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
@@ -115,6 +137,62 @@
                 }
               }
             }
+          }
+        },
+        "SpacefarersObjectPage": {
+          "type": "Component",
+          "id": "SpacefarersObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/Spacefarers",
+              "content": {
+                "header": {
+                  "actions": {
+                    "NavToList": {
+                      "press": ".extension.galactic.spacefarer.spacefarers.spacefarers.ext.controller.SpacefarerObjectPage.onNavToList",
+                      "visible": true,
+                      "enabled": true,
+                      "text": "{i18n>navBackToList}"
+                    }
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.FieldGroup#CosmicProfile": {
+                  "fields": {
+                    "stardustCollection": {
+                      "label": "Stardust Collection",
+                      "property": "stardustCollection",
+                      "template": "galactic.spacefarer.spacefarers.spacefarers.ext.fragment.StardustCollectionField",
+                      "position": {
+                        "placement": "After",
+                        "anchor": "DataField::wormholeNavigationSkill"
+                      }
+                    },
+                    "spacesuitColor": {
+                      "label": "Spacesuit Color",
+                      "property": "spacesuitColor",
+                      "template": "galactic.spacefarer.spacefarers.spacefarers.ext.fragment.SpacesuitColorField",
+                      "position": {
+                        "placement": "After",
+                        "anchor": "stardustCollection"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "extends": {
+      "extensions": {
+        "sap.ui.controllerExtensions": {
+          "sap.fe.templates.ObjectPage.ObjectPageController#galactic.spacefarer.spacefarers.spacefarers::SpacefarersObjectPage": {
+            "controllerName": "galactic.spacefarer.spacefarers.spacefarers.ext.controller.SpacefarerObjectPage"
           }
         }
       }
